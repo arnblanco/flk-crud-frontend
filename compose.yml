@@ -1,0 +1,14 @@
+services:
+  web-front:
+    container_name: react-crud
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app:cached
+    ports:
+      - "5173:5173" 
+    env_file:
+      - ./.env
+    stdin_open: true
+    tty: true
