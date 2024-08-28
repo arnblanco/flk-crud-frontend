@@ -13,8 +13,8 @@ RUN yarn install --frozen-lockfile
 # Copiar el resto de la aplicación
 COPY . .
 
-# Exponer el puerto 3000
-EXPOSE 5173
+# assign permission users
+RUN chmod 755 node_modules/
 
 # Comando para iniciar la aplicación
 CMD ["yarn", "dev"]

@@ -1,0 +1,1 @@
+export { default as CompanyApi } from './CompanyApi'
