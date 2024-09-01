@@ -1,5 +1,8 @@
+import Swal from 'sweetalert2'
+
 import { useDispatch, useSelector } from "react-redux"
-import { cancelChangeStatus, createChangeStatus, setInitialStockData, setActiveStock, removeActiveStock, startingEdigitnActiveStock, addNewStockToList, modifyStockToList } from "../store"
+import { cancelChangeStatus, createChangeStatus, setInitialStockData, setActiveStock, removeActiveStock, startingEdigitnActiveStock, addNewStockToList, modifyStockToList, removeStockFromList } from "../store"
+
 import CompanyApi from "../api/CompanyApi"
 
 export const useNyseStore = () => {
@@ -32,6 +35,33 @@ export const useNyseStore = () => {
         dispatch( startingEdigitnActiveStock() )
     }
 
+    const startToDeleteCompany = () => {
+        Swal.fire({
+            title: 'Alert',
+            text: `Are you sure you want to delete the record ${ activeStock.name }?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete',
+            cancelButtonText: 'Cancel'
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+                
+
+                const response = await CompanyApi.delete(`/companies/${ activeStock.id }/`, {} )
+                dispatch( removeStockFromList() )
+
+                
+                Swal.fire(
+                    '¡Deleted!',
+                    'The record was deleted.',
+                    'success'
+                );
+            }
+        });
+    }
+
     const saveStockCompany = async({ name, symbol, description }) => {
         try {
             if( isEditing ) {
@@ -39,10 +69,17 @@ export const useNyseStore = () => {
                 dispatch( modifyStockToList( response.data ) )
             } else {
                 const response = await CompanyApi.post('/companies/', { name, symbol, description } )
+                console.log( 'Captura del error:', response )
                 dispatch( addNewStockToList( response.data ) )
             }
         } catch (error) {
-            console.log( error )
+            const data = error.response.data
+            Swal.fire({
+                title: 'Alert!',
+                text: data.symbol[0],
+                icon: 'error',
+                confirmButtonText: 'Ok!!'
+            });
         }      
     }
 
@@ -76,6 +113,7 @@ export const useNyseStore = () => {
         saveStockCompany,
         onFormCompanyAdd,
         onFormCompanyEdit,
-        onFormCompanyCancel
+        onFormCompanyCancel,
+        startToDeleteCompany
     }
 }

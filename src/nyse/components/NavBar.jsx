@@ -3,7 +3,7 @@ import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
 import { useNyseStore } from "../../hooks"
 
 export const NavBar = ({ drawerWidth = 240 }) => {
-    const { activeStock, isEditing, cancelActiveStock, editActiveStock } = useNyseStore()
+    const { activeStock, isEditing, cancelActiveStock, editActiveStock, startToDeleteCompany } = useNyseStore()
 
     return (
         <AppBar
@@ -38,11 +38,11 @@ export const NavBar = ({ drawerWidth = 240 }) => {
                                     <EditNote /> Edit
                                 </IconButton>
 
-                                <IconButton color='error' >
+                                <IconButton color='error' onClick={ startToDeleteCompany } >
                                     <DeleteForeverOutlined /> Delte
                                 </IconButton>
 
-                                <IconButton color='white' onClick={ cancelActiveStock }>
+                                <IconButton sx={{ color: 'white' }}  onClick={ cancelActiveStock }>
                                     <CancelOutlined /> Close
                                 </IconButton>
                             </>

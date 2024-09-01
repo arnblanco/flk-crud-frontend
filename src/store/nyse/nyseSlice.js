@@ -57,6 +57,14 @@ export const nyseSlice = createSlice({
             state.isEditing = true
             state.isSaving = false
         },
+        removeStockFromList: ( state ) => {
+            state.stoks = state.stoks.filter(stock => stock.id !== state.activeStock.id);
+
+            state.activeStock = null
+            state.formNyse = false
+            state.isEditing = false
+            state.isSaving = false
+        },
         cancelChangeStatus: ( state ) => {
             state.activeStock = null
             state.formNyse = false
@@ -75,5 +83,6 @@ export const {
     modifyStockToList,
     createChangeStatus,
     editChangeStatus,
+    removeStockFromList,
     cancelChangeStatus
 } = nyseSlice.actions

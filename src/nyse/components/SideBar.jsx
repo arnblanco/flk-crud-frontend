@@ -1,9 +1,21 @@
-import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material"
+
+import { Box, Divider, Drawer, List, Toolbar, Typography, TextField } from "@mui/material"
 import { useNyseStore } from "../../hooks"
 import { SidebarItems } from "./SidebarItems"
+import { useState } from "react"
 
 export const SideBar = ({ drawerWidth }) => {
     const { stoks } = useNyseStore()
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredStocks = stoks.filter(stok =>
+        stok.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        stok.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <Box
@@ -26,8 +38,19 @@ export const SideBar = ({ drawerWidth }) => {
                 <Divider />
 
                 <List>
+                    <TextField
+                        type="text"
+                        variant="filled"
+                        fullWidth
+                        placeholder="Search"
+                        label="Search"
+                        sx={{ border: 'none', mb: 1 }}
+                        name='search'
+                        value={ searchTerm }
+                        onChange={ handleSearchChange }
+                    />
                     {
-                        stoks.map( stok => (
+                        filteredStocks.map( stok => (
                             <SidebarItems key={ stok.id } { ...stok } />
                         ))
                     }
