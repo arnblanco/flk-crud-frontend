@@ -1,5 +1,10 @@
 {
   "files": [],
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react",
+    "skipLibCheck": true
+  },
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }

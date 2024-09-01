@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = `${ process.env.SERVER_API }/api`;
+const baseURL = 'https://flk-crud-backend.up.railway.app/api';
 
 const CompanyApi = axios.create({
     baseURL: baseURL,

@@ -3,8 +3,10 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
 
+// @ts-ignore
 import { NyseApp } from './NyseApp'
 
+// @ts-ignore
 import { store } from './store'
 
 import '@fontsource/roboto/300.css';
