@@ -1,23 +1,20 @@
-FROM node:18.19-alpine as build
+# Usar la imagen oficial de Node.js 18 como base
+FROM node:18-alpine
 
-# Establece el directorio de trabajo en /app
+# Crear directorio de trabajo
 WORKDIR /app
 
-# Copia env y el resto de la aplicación
-COPY . .
+# Copiar package.json y yarn.lock antes de instalar las dependencias
+COPY package.json yarn.lock ./
 
-# install dependencies
+# Instalar dependencias
 RUN yarn install --frozen-lockfile
+
+# Copiar el resto de la aplicación
+COPY . .
 
 # assign permission users
 RUN chmod 755 node_modules/
-RUN yarn build
-#CMD [ "yarn", "run", "start"]
 
-FROM nginx:alpine
-WORKDIR /usr/share/nginx/html/
-COPY --from=build /app/dist/ /usr/share/nginx/html/
-RUN rm /etc/nginx/conf.d/default.conf
-COPY ./nginx/default.conf /etc/nginx/conf.d
-EXPOSE 5173
-CMD ["nginx", "-g", "daemon off;"]
+# Comando para iniciar la aplicación
+CMD ["yarn", "dev"]
