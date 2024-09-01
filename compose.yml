@@ -3,7 +3,7 @@ services:
     container_name: react-crud
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - .:/app:cached
       - /app/node_modules
