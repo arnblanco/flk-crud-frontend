@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const baseURL = 'http://localhost:8000';
+const baseURL = 'https://flk-crud-backend.up.railway.app';
 
 export const useFetch = ({ method = 'GET', url, data = null }) => {
   const [response, setResponse] = useState(null);

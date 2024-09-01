@@ -16,11 +16,9 @@ import './style.css'
 
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
     <Provider store={ store }>
       <BrowserRouter>
         <NyseApp />
       </BrowserRouter>
     </Provider>
-  </StrictMode>,
 )
