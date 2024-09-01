@@ -11,7 +11,7 @@ RUN yarn install --frozen-lockfile
 
 # assign permission users
 RUN chmod 755 node_modules/
-RUN npm run build
+RUN yarn build
 #CMD [ "yarn", "run", "start"]
 
 FROM nginx:alpine
